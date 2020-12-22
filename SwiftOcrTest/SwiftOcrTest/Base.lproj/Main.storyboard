@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1ET-AJ-bfr">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--All checks-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SwiftOcrTest" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,56 +18,116 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lmC-EG-KCU">
-                                <rect key="frame" x="10" y="54" width="394" height="150"/>
+                                <rect key="frame" x="10" y="98" width="394" height="150"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invoice_1" translatesAutoresizingMaskIntoConstraints="NO" id="6Ah-Sl-ZPG">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVX-5x-xtX" userLabel="Button_1">
                                         <rect key="frame" x="0.0" y="0.0" width="71" height="150"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invoice_2" translatesAutoresizingMaskIntoConstraints="NO" id="j6K-iS-9kY">
+                                        <state key="normal" image="invoice_1"/>
+                                        <connections>
+                                            <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1E8-dR-d8e"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlf-g4-SKg" userLabel="Button_2">
                                         <rect key="frame" x="81" y="0.0" width="70.5" height="150"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invoice_3" translatesAutoresizingMaskIntoConstraints="NO" id="UsS-0S-C2f">
+                                        <state key="normal" image="invoice_2"/>
+                                        <connections>
+                                            <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="a4X-V9-jVD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHb-kf-5XT" userLabel="Button_3">
                                         <rect key="frame" x="161.5" y="0.0" width="71" height="150"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invoice_4" translatesAutoresizingMaskIntoConstraints="NO" id="ecs-eP-UeB">
+                                        <state key="normal" image="invoice_3"/>
+                                        <connections>
+                                            <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fVh-td-8Qc"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="isC-Dm-FBD" userLabel="Button_4">
                                         <rect key="frame" x="242.5" y="0.0" width="70.5" height="150"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invoice_5" translatesAutoresizingMaskIntoConstraints="NO" id="Ld6-sO-QNh">
+                                        <state key="normal" image="invoice_4"/>
+                                        <connections>
+                                            <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PyI-Qc-7BD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udJ-oh-EkL" userLabel="Button_5">
                                         <rect key="frame" x="323" y="0.0" width="71" height="150"/>
-                                    </imageView>
+                                        <state key="normal" image="invoice_5"/>
+                                        <connections>
+                                            <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7bL-a7-KER"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="Mni-vF-Hu1"/>
                                 </constraints>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="x9b-KY-hGL">
-                                <rect key="frame" x="10" y="214" width="394" height="648"/>
+                                <rect key="frame" x="10" y="258" width="394" height="150"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="tbW-tK-xHW"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PBq-sz-0az" userLabel="ViewForImage">
+                                <rect key="frame" x="10" y="418" width="394" height="444"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VF1-rj-zHu">
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="444"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="VF1-rj-zHu" secondAttribute="bottom" id="0gD-vc-hob"/>
+                                    <constraint firstAttribute="trailing" secondItem="VF1-rj-zHu" secondAttribute="trailing" id="U9v-gC-lPd"/>
+                                    <constraint firstItem="VF1-rj-zHu" firstAttribute="leading" secondItem="PBq-sz-0az" secondAttribute="leading" id="YOc-j2-bWA"/>
+                                    <constraint firstItem="VF1-rj-zHu" firstAttribute="top" secondItem="PBq-sz-0az" secondAttribute="top" id="rlT-31-oBY"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemIndigoColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lmC-EG-KCU" secondAttribute="trailing" constant="10" id="3wO-WB-GyO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="x9b-KY-hGL" secondAttribute="trailing" constant="10" id="C2f-26-OA5"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="x9b-KY-hGL" secondAttribute="bottom" id="VYR-lo-3Rd"/>
+                            <constraint firstItem="PBq-sz-0az" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="S5Q-1k-RCh"/>
+                            <constraint firstItem="PBq-sz-0az" firstAttribute="top" secondItem="x9b-KY-hGL" secondAttribute="bottom" constant="10" id="Z08-n1-rIe"/>
                             <constraint firstItem="lmC-EG-KCU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="dGr-qc-QE6"/>
                             <constraint firstItem="lmC-EG-KCU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="k1B-al-LZ9"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PBq-sz-0az" secondAttribute="trailing" constant="10" id="kvY-Vt-pIG"/>
                             <constraint firstItem="x9b-KY-hGL" firstAttribute="top" secondItem="lmC-EG-KCU" secondAttribute="bottom" constant="10" id="mUB-6n-PqX"/>
                             <constraint firstItem="x9b-KY-hGL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="v3M-Yx-WHc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PBq-sz-0az" secondAttribute="bottom" id="zA3-gj-goW"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="All checks" id="Wop-wa-Myf"/>
                     <connections>
+                        <outlet property="checkImageView" destination="VF1-rj-zHu" id="0iR-pi-1kW"/>
                         <outlet property="stackOfImages" destination="lmC-EG-KCU" id="3Jl-73-wrY"/>
                         <outlet property="textView" destination="x9b-KY-hGL" id="7rP-el-WSj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="62"/>
+            <point key="canvasLocation" x="1047.8260869565217" y="61.607142857142854"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tme-FJ-u1R">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1ET-AJ-bfr" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gVO-iP-PUQ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="h1L-2n-DzG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a1i-GU-rEc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="61.607142857142854"/>
         </scene>
     </scenes>
     <resources>

@@ -9,29 +9,31 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var stackOfImages: UIStackView!
+    @IBOutlet weak var checkImageView: UIImageView!
     
-    private var imagesToScan = [UIImage]()
     var textRecognitionRequest = VNRecognizeTextRequest(completionHandler: nil)
     let textRecognitionWorkQueue = DispatchQueue(label: "TextRecognitionQueue", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
+    
+    private var loaderView: UIView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setTextRequest()
-        setupImages()
-//        setRandomImage()
-        recognizeFirstImage()
+    }
+    
+    @IBAction func onCheckTap(_ sender: UIButton) {
+        if let image = sender.image(for: .normal), let cgImage = image.cgImage {
+            setLoader()
+            self.textView.text = ""
+            checkImageView.image = image
+            recognizeImage(cgImage: cgImage)
+        }
     }
     
 }
 
 private extension ViewController {
-    func recognizeFirstImage() {
-        if imagesToScan.count > 0, let first = imagesToScan.first, let cgImage = first.cgImage {
-            imagesToScan.removeFirst()
-            recognizeImage(cgImage: cgImage)
-        }
-    }
     
     func recognizeImage(cgImage: CGImage) {
         textRecognitionWorkQueue.async {
@@ -39,6 +41,7 @@ private extension ViewController {
             do {
                 try requestHandler.perform([self.textRecognitionRequest])
             } catch {
+                self.removeLoader()
                 print(error)
             }
         }
@@ -56,10 +59,8 @@ private extension ViewController {
             }
             
             DispatchQueue.main.async {
-                self.textView.text += "======= SCANNED INVOICE =======\n"
+                self.removeLoader()
                 self.textView.text += detectedText
-                self.textView.text += "\n\n\n"
-                self.recognizeFirstImage()
             }
         }
         textRecognitionRequest.minimumTextHeight = 0.013
@@ -68,17 +69,14 @@ private extension ViewController {
         textRecognitionRequest.recognitionLanguages = ["ru", "en", "de"]
     }
     
-    func setupImages() {
-        for iView in stackOfImages.arrangedSubviews {
-            if let imageView = iView as? UIImageView, let image = imageView.image {
-                imagesToScan.append(image)
-            }
-        }
+    func setLoader() {
+        loaderView = UIView(frame: UIScreen.main.bounds)
+        loaderView!.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        self.view.addSubview(loaderView!)
     }
     
-    func setRandomImage() {
-        let iView = UIImageView(frame: UIScreen.main.bounds)
-        iView.image = imagesToScan.randomElement()
-        self.view.addSubview(iView)
+    func removeLoader() {
+        self.loaderView?.removeFromSuperview()
+        self.loaderView = nil
     }
 }
