@@ -7,6 +7,8 @@ import Vision
 
 class ViewController: UIViewController {
     
+    private let MinimumTextHeight: Float = 0.007 //Lower -> better recognition
+    
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var stackOfImages: UIStackView!
     @IBOutlet weak var checkImageView: UIImageView!
@@ -57,6 +59,7 @@ private extension ViewController {
             for observation in observations {
                 guard let topCandidate = observation.topCandidates(1).first else { return }
                 var finalString = topCandidate.string.replacingOccurrences(of: ",", with: ".")
+                finalString = finalString.replacingOccurrences(of: "=", with: "")
                 finalString = finalString.replacingOccurrences(of: "-", with: "")
                 detectedText += finalString
                 detectedText += "\n"
@@ -72,7 +75,7 @@ private extension ViewController {
                 self.textView.text += detectedText
             }
         }
-        textRecognitionRequest.minimumTextHeight = 0.011
+        textRecognitionRequest.minimumTextHeight = MinimumTextHeight
         textRecognitionRequest.recognitionLevel = .accurate
         textRecognitionRequest.usesLanguageCorrection = false
         textRecognitionRequest.recognitionLanguages = ["ru", "en", "de"]
