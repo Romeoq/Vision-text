@@ -18,22 +18,27 @@ class ViewController: UIViewController {
     let textRecognitionWorkQueue = DispatchQueue(label: "TextRecognitionQueue", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
     
     private var loaderView: UIView?
+//    private var tempView: UIView?
     private var boxes = [CheckSelectionBox]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setTextRequest()
+        checkImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onImageViewTap(sender:))))
+        
     }
     
     @IBAction func onCheckTap(_ sender: UIButton) {
         if let image = sender.image(for: .normal), let cgImage = image.cgImage {
             setLoader()
-            for subView in viewForImage.subviews {
-                if subView is UIButton {
-                    subView.removeFromSuperview()
-                }
-            }
+//            for subView in viewForImage.subviews {
+//                if subView is UIButton {
+//                    subView.removeFromSuperview()
+//                }
+//            }
+//            tempView?.removeFromSuperview()
+//            tempView = nil
             self.textView.text = ""
             checkImageView.image = image
             recognizeImage(cgImage: cgImage)
@@ -102,33 +107,75 @@ private extension ViewController {
         guard let image = checkImageView.image else  { return }
         
         let imageTransform = CGAffineTransform.identity.scaledBy(x: 1, y: -1).translatedBy(x: 0, y: -image.size.height).scaledBy(x: image.size.width, y: image.size.height)
+//        let viewTransform = getViewTransform(image: image)
         
+//        tempView = UIView()
+//        viewForImage.addSubview(tempView!)
         UIGraphicsBeginImageContextWithOptions(image.size, false, 1.0)
         let context = UIGraphicsGetCurrentContext()!
         image.draw(in: CGRect(origin: .zero, size: image.size))
         context.setStrokeColor(CGColor(srgbRed: 1, green: 0, blue: 0, alpha: 1))
         context.setLineWidth(2)
+        
         for index in 0 ..< boxes.count {
             let optimizedRect = boxes[index].boundingBox.applying(imageTransform)
             context.addRect(optimizedRect)
-            drawButton(optimizedRect: optimizedRect, index: index)
+            boxes[index].imageBox = optimizedRect
+//            drawButton(optimizedRect: boxes[index].boundingBox.applying(viewTransform), index: index, sourceImage: image)
         }
+//        moveTempView()
         context.strokePath()
         let result=UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         checkImageView.image = result
     }
     
-    func drawButton(optimizedRect: CGRect, index: Int) {
-        let btn = UIButton(frame: optimizedRect)
-        btn.tag = index
-        btn.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.5)
-        viewForImage.addSubview(btn)
-        btn.addTarget(self, action: #selector(onNumberTap), for: .touchUpInside)
+    func getViewTransform(image: UIImage) -> CGAffineTransform {
+        let ratio = image.size.width / image.size.height
+        let yBoundsScale = image.size.height < image.size.width ? viewForImage.bounds.height / ratio : viewForImage.bounds.height
+        
+        let baseTransform =  CGAffineTransform.identity.scaledBy(x: viewForImage.bounds.width, y: -yBoundsScale)
+        return baseTransform
     }
+    
+//    func drawButton(optimizedRect: CGRect, index: Int, sourceImage: UIImage) {
+//        let btn = UIButton(frame: optimizedRect)
+//        btn.tag = index
+//        btn.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.5)
+//        btn.addTarget(self, action: #selector(onNumberTap), for: .touchUpInside)
+//        tempView!.addSubview(btn)
+////        btn.transform = CGAffineTransform(scaleX: viewForImage.bounds.width / sourceImage.size.width, y: 1)
+//    }
+    
+//    func moveTempView() {
+//        tempView!.frame.origin.y += viewForImage.frame.height - 100
+//    }
     
     @objc
     func onNumberTap(sender: UIButton) {
         print("Index = \(sender.tag)", "Price = \(boxes[sender.tag].double)")
+    }
+    
+    @objc
+    func onImageViewTap(sender: UITapGestureRecognizer) {
+        guard let image = checkImageView.image, let cgImage = image.cgImage else { return }
+        
+        let tapX = sender.location(in: checkImageView).x
+        let tapY = sender.location(in: checkImageView).y
+        
+        let xRatio = image.size.width / checkImageView.bounds.width
+        let yRatio = image.size.height / checkImageView.bounds.height
+        
+        let imageXPoint = tapX * xRatio
+        let imageYPoint = tapY * yRatio
+        
+        for box in boxes {
+            if box.imageBox.contains(CGPoint(x: imageXPoint, y: imageYPoint)) {
+                print(box.double)
+                break
+            }
+        }
+//        print(imageXPoint, imageYPoint, image.size, cgImage.width, cgImage.height, checkImageView.bounds.size)
+        
     }
 }

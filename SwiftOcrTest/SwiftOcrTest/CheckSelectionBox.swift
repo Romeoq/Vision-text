@@ -9,5 +9,5 @@ struct CheckSelectionBox {
     
     let double: Double
     let boundingBox: CGRect
-    
+    var imageBox: CGRect = .zero
 }
