@@ -105,6 +105,7 @@
                         <outlet property="checkImageView" destination="VF1-rj-zHu" id="0iR-pi-1kW"/>
                         <outlet property="stackOfImages" destination="lmC-EG-KCU" id="3Jl-73-wrY"/>
                         <outlet property="textView" destination="x9b-KY-hGL" id="7rP-el-WSj"/>
+                        <outlet property="viewForImage" destination="PBq-sz-0az" id="ZBB-qI-ekF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -131,11 +132,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="invoice_1" width="300" height="840"/>
+        <image name="invoice_1" width="640" height="364"/>
         <image name="invoice_2" width="384" height="512"/>
         <image name="invoice_3" width="2448" height="3264"/>
         <image name="invoice_4" width="780" height="516"/>
-        <image name="invoice_5" width="1082" height="1400"/>
+        <image name="invoice_5" width="935" height="516"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

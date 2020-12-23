@@ -9,6 +9,7 @@ class ViewController: UIViewController {
     
     private let MinimumTextHeight: Float = 0.007 //Lower -> better recognition
     
+    @IBOutlet weak var viewForImage: UIView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var stackOfImages: UIStackView!
     @IBOutlet weak var checkImageView: UIImageView!
@@ -28,6 +29,11 @@ class ViewController: UIViewController {
     @IBAction func onCheckTap(_ sender: UIButton) {
         if let image = sender.image(for: .normal), let cgImage = image.cgImage {
             setLoader()
+            for subView in viewForImage.subviews {
+                if subView is UIButton {
+                    subView.removeFromSuperview()
+                }
+            }
             self.textView.text = ""
             checkImageView.image = image
             recognizeImage(cgImage: cgImage)
@@ -102,12 +108,27 @@ private extension ViewController {
         image.draw(in: CGRect(origin: .zero, size: image.size))
         context.setStrokeColor(CGColor(srgbRed: 1, green: 0, blue: 0, alpha: 1))
         context.setLineWidth(2)
-        for box in boxes {
-            context.addRect(box.boundingBox.applying(imageTransform))
+        for index in 0 ..< boxes.count {
+            let optimizedRect = boxes[index].boundingBox.applying(imageTransform)
+            context.addRect(optimizedRect)
+            drawButton(optimizedRect: optimizedRect, index: index)
         }
         context.strokePath()
         let result=UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         checkImageView.image = result
+    }
+    
+    func drawButton(optimizedRect: CGRect, index: Int) {
+        let btn = UIButton(frame: optimizedRect)
+        btn.tag = index
+        btn.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.5)
+        viewForImage.addSubview(btn)
+        btn.addTarget(self, action: #selector(onNumberTap), for: .touchUpInside)
+    }
+    
+    @objc
+    func onNumberTap(sender: UIButton) {
+        print("Index = \(sender.tag)", "Price = \(boxes[sender.tag].double)")
     }
 }
