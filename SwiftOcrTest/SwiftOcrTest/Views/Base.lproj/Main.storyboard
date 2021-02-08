@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1ET-AJ-bfr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1ET-AJ-bfr">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--All checks-->
+        <!--Vision text recognition-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SwiftOcrTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="SwiftOcrTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,38 +21,24 @@
                                 <rect key="frame" x="10" y="98" width="394" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVX-5x-xtX" userLabel="Button_1">
-                                        <rect key="frame" x="0.0" y="0.0" width="71" height="150"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="124.5" height="150"/>
                                         <state key="normal" image="invoice_1"/>
                                         <connections>
                                             <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1E8-dR-d8e"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlf-g4-SKg" userLabel="Button_2">
-                                        <rect key="frame" x="81" y="0.0" width="70.5" height="150"/>
+                                        <rect key="frame" x="134.5" y="0.0" width="125" height="150"/>
                                         <state key="normal" image="invoice_2"/>
                                         <connections>
                                             <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="a4X-V9-jVD"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHb-kf-5XT" userLabel="Button_3">
-                                        <rect key="frame" x="161.5" y="0.0" width="71" height="150"/>
+                                        <rect key="frame" x="269.5" y="0.0" width="124.5" height="150"/>
                                         <state key="normal" image="invoice_3"/>
                                         <connections>
                                             <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fVh-td-8Qc"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="isC-Dm-FBD" userLabel="Button_4">
-                                        <rect key="frame" x="242.5" y="0.0" width="70.5" height="150"/>
-                                        <state key="normal" image="invoice_4"/>
-                                        <connections>
-                                            <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PyI-Qc-7BD"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udJ-oh-EkL" userLabel="Button_5">
-                                        <rect key="frame" x="323" y="0.0" width="71" height="150"/>
-                                        <state key="normal" image="invoice_5"/>
-                                        <connections>
-                                            <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7bL-a7-KER"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -75,7 +61,6 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VF1-rj-zHu">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="444"/>
-                                        <color key="backgroundColor" systemColor="systemPinkColor"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -101,7 +86,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PBq-sz-0az" secondAttribute="bottom" id="zA3-gj-goW"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="All checks" id="Wop-wa-Myf"/>
+                    <navigationItem key="navigationItem" title="Vision text recognition" id="Wop-wa-Myf"/>
                     <connections>
                         <outlet property="checkImageView" destination="VF1-rj-zHu" id="0iR-pi-1kW"/>
                         <outlet property="stackOfImages" destination="lmC-EG-KCU" id="3Jl-73-wrY"/>
@@ -136,8 +121,6 @@
         <image name="invoice_1" width="640" height="364"/>
         <image name="invoice_2" width="384" height="512"/>
         <image name="invoice_3" width="2448" height="3264"/>
-        <image name="invoice_4" width="780" height="516"/>
-        <image name="invoice_5" width="935" height="516"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -146,9 +129,6 @@
         </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

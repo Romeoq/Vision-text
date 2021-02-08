@@ -5,27 +5,26 @@
 import UIKit
 import Vision
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     
-    private let MinimumTextHeight: Float = 0.007 //Lower -> better recognition
+    private let MinimumTextHeight: Float = 0.007 //Lower = better recognition
     
     @IBOutlet weak var viewForImage: UIView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var stackOfImages: UIStackView!
     @IBOutlet weak var checkImageView: UIImageView!
     
-    var textRecognitionRequest = VNRecognizeTextRequest(completionHandler: nil)
+    var textRecognitionRequest: VNRecognizeTextRequest?
     let textRecognitionWorkQueue = DispatchQueue(label: "TextRecognitionQueue", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
     
     private var loaderView: UIView?
-//    private var tempView: UIView?
     private var boxes = [CheckSelectionBox]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setTextRequest()
-        checkImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onImageViewTap(sender:))))
+//        checkImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onImageViewTap(sender:))))
         
     }
     
@@ -47,13 +46,13 @@ class ViewController: UIViewController {
     
 }
 
-private extension ViewController {
+private extension MainViewController {
     
     func recognizeImage(cgImage: CGImage) {
         textRecognitionWorkQueue.async {
             let requestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
             do {
-                try requestHandler.perform([self.textRecognitionRequest])
+                try requestHandler.perform([self.textRecognitionRequest!])
             } catch {
                 self.removeLoader()
                 print(error)
@@ -86,10 +85,10 @@ private extension ViewController {
                 self.textView.text += detectedText
             }
         }
-        textRecognitionRequest.minimumTextHeight = MinimumTextHeight
-        textRecognitionRequest.recognitionLevel = .accurate
-        textRecognitionRequest.usesLanguageCorrection = false
-        textRecognitionRequest.recognitionLanguages = ["ru", "en", "de"]
+        textRecognitionRequest!.minimumTextHeight = MinimumTextHeight
+        textRecognitionRequest!.recognitionLevel = .accurate
+        textRecognitionRequest!.usesLanguageCorrection = false
+        textRecognitionRequest!.recognitionLanguages = ["ru", "ro", "en"]
     }
     
     func setLoader() {

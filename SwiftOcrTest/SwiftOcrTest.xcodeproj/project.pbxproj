@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		221E5B792591EB9800F2DA5A /* CheckSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E5B782591EB9800F2DA5A /* CheckSelectionBox.swift */; };
 		227F681F258202BB002B2BA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227F681E258202BB002B2BA6 /* AppDelegate.swift */; };
-		227F6823258202BB002B2BA6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227F6822258202BB002B2BA6 /* ViewController.swift */; };
+		227F6823258202BB002B2BA6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227F6822258202BB002B2BA6 /* MainViewController.swift */; };
 		227F6826258202BB002B2BA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 227F6824258202BB002B2BA6 /* Main.storyboard */; };
 		227F6828258202BE002B2BA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 227F6827258202BE002B2BA6 /* Assets.xcassets */; };
 		227F682B258202BE002B2BA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 227F6829258202BE002B2BA6 /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		221E5B782591EB9800F2DA5A /* CheckSelectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckSelectionBox.swift; sourceTree = "<group>"; };
 		227F681B258202BB002B2BA6 /* SwiftOcrTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftOcrTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		227F681E258202BB002B2BA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		227F6822258202BB002B2BA6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		227F6822258202BB002B2BA6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		227F6825258202BB002B2BA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		227F6827258202BE002B2BA6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		227F682A258202BE002B2BA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -37,6 +37,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		225A389525D17478000F76E3 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				227F682C258202BE002B2BA6 /* Info.plist */,
+				227F681E258202BB002B2BA6 /* AppDelegate.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		225A389725D1748B000F76E3 /* Conrollers */ = {
+			isa = PBXGroup;
+			children = (
+				227F6822258202BB002B2BA6 /* MainViewController.swift */,
+			);
+			path = Conrollers;
+			sourceTree = "<group>";
+		};
+		225A389825D17494000F76E3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				221E5B782591EB9800F2DA5A /* CheckSelectionBox.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		225A389925D174AF000F76E3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				227F6829258202BE002B2BA6 /* LaunchScreen.storyboard */,
+				227F6824258202BB002B2BA6 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		225A389A25D174C6000F76E3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				227F6827258202BE002B2BA6 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		227F6812258202BB002B2BA6 = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +98,11 @@
 		227F681D258202BB002B2BA6 /* SwiftOcrTest */ = {
 			isa = PBXGroup;
 			children = (
-				227F681E258202BB002B2BA6 /* AppDelegate.swift */,
-				227F6822258202BB002B2BA6 /* ViewController.swift */,
-				227F6824258202BB002B2BA6 /* Main.storyboard */,
-				227F6827258202BE002B2BA6 /* Assets.xcassets */,
-				227F6829258202BE002B2BA6 /* LaunchScreen.storyboard */,
-				227F682C258202BE002B2BA6 /* Info.plist */,
-				221E5B782591EB9800F2DA5A /* CheckSelectionBox.swift */,
+				225A389825D17494000F76E3 /* Models */,
+				225A389925D174AF000F76E3 /* Views */,
+				225A389725D1748B000F76E3 /* Conrollers */,
+				225A389A25D174C6000F76E3 /* Resources */,
+				225A389525D17478000F76E3 /* Base */,
 			);
 			path = SwiftOcrTest;
 			sourceTree = "<group>";
@@ -137,7 +177,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				227F6823258202BB002B2BA6 /* ViewController.swift in Sources */,
+				227F6823258202BB002B2BA6 /* MainViewController.swift in Sources */,
 				221E5B792591EB9800F2DA5A /* CheckSelectionBox.swift in Sources */,
 				227F681F258202BB002B2BA6 /* AppDelegate.swift in Sources */,
 			);
@@ -288,11 +328,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TEW9C83TFQ;
-				INFOPLIST_FILE = SwiftOcrTest/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SwiftOcrTest/Base/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = romeoq.SwiftOcrTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -307,11 +348,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TEW9C83TFQ;
-				INFOPLIST_FILE = SwiftOcrTest/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SwiftOcrTest/Base/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = romeoq.SwiftOcrTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
