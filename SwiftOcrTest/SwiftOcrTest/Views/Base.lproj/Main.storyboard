@@ -20,27 +20,15 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lmC-EG-KCU">
                                 <rect key="frame" x="10" y="98" width="394" height="150"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVX-5x-xtX" userLabel="Button_1">
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invoice_1" translatesAutoresizingMaskIntoConstraints="NO" id="lkk-CJ-4c1" userLabel="Invoice1">
                                         <rect key="frame" x="0.0" y="0.0" width="124.5" height="150"/>
-                                        <state key="normal" image="invoice_1"/>
-                                        <connections>
-                                            <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1E8-dR-d8e"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlf-g4-SKg" userLabel="Button_2">
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invoice_2" translatesAutoresizingMaskIntoConstraints="NO" id="P1v-wI-97l" userLabel="Invoice2">
                                         <rect key="frame" x="134.5" y="0.0" width="125" height="150"/>
-                                        <state key="normal" image="invoice_2"/>
-                                        <connections>
-                                            <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="a4X-V9-jVD"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHb-kf-5XT" userLabel="Button_3">
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invoice_3" translatesAutoresizingMaskIntoConstraints="NO" id="sxv-vU-jvl" userLabel="Invoice3">
                                         <rect key="frame" x="269.5" y="0.0" width="124.5" height="150"/>
-                                        <state key="normal" image="invoice_3"/>
-                                        <connections>
-                                            <action selector="onCheckTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fVh-td-8Qc"/>
-                                        </connections>
-                                    </button>
+                                    </imageView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="Mni-vF-Hu1"/>
@@ -56,19 +44,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PBq-sz-0az" userLabel="ViewForImage">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PBq-sz-0az" userLabel="ViewForInvoice">
                                 <rect key="frame" x="10" y="418" width="394" height="444"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VF1-rj-zHu">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="444"/>
-                                    </imageView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="VF1-rj-zHu" secondAttribute="bottom" id="0gD-vc-hob"/>
-                                    <constraint firstAttribute="trailing" secondItem="VF1-rj-zHu" secondAttribute="trailing" id="U9v-gC-lPd"/>
-                                    <constraint firstItem="VF1-rj-zHu" firstAttribute="leading" secondItem="PBq-sz-0az" secondAttribute="leading" id="YOc-j2-bWA"/>
-                                    <constraint firstItem="VF1-rj-zHu" firstAttribute="top" secondItem="PBq-sz-0az" secondAttribute="top" id="rlT-31-oBY"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -88,10 +65,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Vision text recognition" id="Wop-wa-Myf"/>
                     <connections>
-                        <outlet property="checkImageView" destination="VF1-rj-zHu" id="0iR-pi-1kW"/>
-                        <outlet property="stackOfImages" destination="lmC-EG-KCU" id="3Jl-73-wrY"/>
+                        <outlet property="stackOfInvoices" destination="lmC-EG-KCU" id="w0F-J1-MEo"/>
                         <outlet property="textView" destination="x9b-KY-hGL" id="7rP-el-WSj"/>
-                        <outlet property="viewForImage" destination="PBq-sz-0az" id="ZBB-qI-ekF"/>
+                        <outlet property="viewForInvoice" destination="PBq-sz-0az" id="mIQ-65-YSC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

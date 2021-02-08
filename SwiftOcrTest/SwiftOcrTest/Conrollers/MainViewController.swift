@@ -9,41 +9,24 @@ class MainViewController: UIViewController {
     
     private let MinimumTextHeight: Float = 0.007 //Lower = better recognition
     
-    @IBOutlet weak var viewForImage: UIView!
+    @IBOutlet weak var viewForInvoice: UIView!
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var stackOfImages: UIStackView!
-    @IBOutlet weak var checkImageView: UIImageView!
+    @IBOutlet weak var stackOfInvoices: UIStackView!
     
+    //request for text recognition
     var textRecognitionRequest: VNRecognizeTextRequest?
+    //Recognition queue
     let textRecognitionWorkQueue = DispatchQueue(label: "TextRecognitionQueue", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
     
-    private var loaderView: UIView?
+    private var loader: UIView?
     private var boxes = [CheckSelectionBox]()
+    private var invoiceImage: UIImageView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setTextRequest()
-//        checkImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onImageViewTap(sender:))))
-        
+        setInvoicesTapRecognizer()
     }
-    
-    @IBAction func onCheckTap(_ sender: UIButton) {
-        if let image = sender.image(for: .normal), let cgImage = image.cgImage {
-            setLoader()
-//            for subView in viewForImage.subviews {
-//                if subView is UIButton {
-//                    subView.removeFromSuperview()
-//                }
-//            }
-//            tempView?.removeFromSuperview()
-//            tempView = nil
-            self.textView.text = ""
-            checkImageView.image = image
-            recognizeImage(cgImage: cgImage)
-        }
-    }
-    
 }
 
 private extension MainViewController {
@@ -91,19 +74,52 @@ private extension MainViewController {
         textRecognitionRequest!.recognitionLanguages = ["ru", "ro", "en"]
     }
     
+    func setInvoicesTapRecognizer() {
+        for imageView in stackOfInvoices.arrangedSubviews {
+            imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onStackInvoiceTap(sender:))))
+        }
+    }
+    
+    @objc
+    func onStackInvoiceTap(sender: UITapGestureRecognizer) {
+        guard let imageView = sender.view as? UIImageView, let newImage = imageView.image, let cgImage = newImage.cgImage else {
+            return
+        }
+        setLoader()
+        self.textView.text = ""
+        addNewInvoiceImageView(with: newImage)
+        //            checkImageView.image = image ADD IMAGE
+        recognizeImage(cgImage: cgImage)
+    }
+    
+    func addNewInvoiceImageView(with image: UIImage) {
+        invoiceImage?.removeFromSuperview()
+        
+        //        checkImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onImageViewTap(sender:))))
+    }
+    
     func setLoader() {
-        loaderView = UIView(frame: UIScreen.main.bounds)
-        loaderView!.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-        self.view.addSubview(loaderView!)
+        loader = UIView(frame: view.bounds)
+        loader?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
+        
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.startAnimating()
+        loader?.addSubview(activity)
+        
+        activity.translatesAutoresizingMaskIntoConstraints = false
+        activity.centerXAnchor.constraint(equalTo: loader!.centerXAnchor).isActive = true
+        activity.centerYAnchor.constraint(equalTo: loader!.centerYAnchor).isActive = true
+        
+        view.addSubview(loader!)
     }
     
     func removeLoader() {
-        self.loaderView?.removeFromSuperview()
-        self.loaderView = nil
+        loader?.removeFromSuperview()
+        loader = nil
     }
     
     func drawBoxes() {
-        guard let image = checkImageView.image else  { return }
+        guard let image = invoiceImage?.image else  { return }
         
         let imageTransform = CGAffineTransform.identity.scaledBy(x: 1, y: -1).translatedBy(x: 0, y: -image.size.height).scaledBy(x: image.size.width, y: image.size.height)
 //        let viewTransform = getViewTransform(image: image)
@@ -126,16 +142,16 @@ private extension MainViewController {
         context.strokePath()
         let result=UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        checkImageView.image = result
+//        checkImageView.image = result
     }
     
-    func getViewTransform(image: UIImage) -> CGAffineTransform {
-        let ratio = image.size.width / image.size.height
-        let yBoundsScale = image.size.height < image.size.width ? viewForImage.bounds.height / ratio : viewForImage.bounds.height
+//    func getViewTransform(image: UIImage) -> CGAffineTransform {
+//        let ratio = image.size.width / image.size.height
+//        let yBoundsScale = image.size.height < image.size.width ? viewForImage.bounds.height / ratio : viewForImage.bounds.height
         
-        let baseTransform =  CGAffineTransform.identity.scaledBy(x: viewForImage.bounds.width, y: -yBoundsScale)
-        return baseTransform
-    }
+//        let baseTransform =  CGAffineTransform.identity.scaledBy(x: viewForImage.bounds.width, y: -yBoundsScale)
+//        return baseTransform
+//    }
     
 //    func drawButton(optimizedRect: CGRect, index: Int, sourceImage: UIImage) {
 //        let btn = UIButton(frame: optimizedRect)
@@ -155,26 +171,26 @@ private extension MainViewController {
         print("Index = \(sender.tag)", "Price = \(boxes[sender.tag].double)")
     }
     
-    @objc
-    func onImageViewTap(sender: UITapGestureRecognizer) {
-        guard let image = checkImageView.image, let cgImage = image.cgImage else { return }
-        
-        let tapX = sender.location(in: checkImageView).x
-        let tapY = sender.location(in: checkImageView).y
-        
-        let xRatio = image.size.width / checkImageView.bounds.width
-        let yRatio = image.size.height / checkImageView.bounds.height
-        
-        let imageXPoint = tapX * xRatio
-        let imageYPoint = tapY * yRatio
-        
-        for box in boxes {
-            if box.imageBox.contains(CGPoint(x: imageXPoint, y: imageYPoint)) {
-                print(box.double)
-                break
-            }
-        }
-//        print(imageXPoint, imageYPoint, image.size, cgImage.width, cgImage.height, checkImageView.bounds.size)
-        
-    }
+//    @objc
+//    func onImageViewTap(sender: UITapGestureRecognizer) {
+//        guard let image = checkImageView.image, let cgImage = image.cgImage else { return }
+//
+//        let tapX = sender.location(in: checkImageView).x
+//        let tapY = sender.location(in: checkImageView).y
+//
+//        let xRatio = image.size.width / checkImageView.bounds.width
+//        let yRatio = image.size.height / checkImageView.bounds.height
+//        
+//        let imageXPoint = tapX * xRatio
+//        let imageYPoint = tapY * yRatio
+//        
+//        for box in boxes {
+//            if box.imageBox.contains(CGPoint(x: imageXPoint, y: imageYPoint)) {
+//                print(box.double)
+//                break
+//            }
+//        }
+////        print(imageXPoint, imageYPoint, image.size, cgImage.width, cgImage.height, checkImageView.bounds.size)
+//        
+//    }
 }
