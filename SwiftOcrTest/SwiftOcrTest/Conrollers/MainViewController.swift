@@ -58,13 +58,17 @@ private extension MainViewController {
             
             for observation in observations {
                 guard let topCandidate = observation.topCandidates(1).first else { return }
+                detectedText += "\(topCandidate.string)\n"
                 
                 //Individual text blocks settings
                 var finalString = topCandidate.string.replacingOccurrences(of: ",", with: ".")
-                let restrictedSymbols: Set<Character> = ["=", "-", "_", "+"]
+                let restrictedSymbols: Set<Character> = ["=", "-", "_", "+", " "]
                 finalString.removeAll(where: { restrictedSymbols.contains($0) })
-                
-                detectedText += "\(finalString)\n"
+                for _ in 0 ..< 3 {
+                    if let lastCharacter = finalString.last, !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: String(lastCharacter))) {
+                        finalString.removeLast()
+                    }
+                }
                 
                 if let double = Double(finalString) {
                     self.textBlocks.append(RecognizedTextBlock(doubleValue: double, cgRect: observation.boundingBox))
@@ -79,7 +83,7 @@ private extension MainViewController {
         }
         
         //Individual recognition request settings
-        textRecognitionRequest!.minimumTextHeight = 0.007 // Lower = better quality
+        textRecognitionRequest!.minimumTextHeight = 0.011 // Lower = better quality
         textRecognitionRequest!.recognitionLevel = .accurate
     }
     
@@ -94,7 +98,7 @@ private extension MainViewController {
         let context = UIGraphicsGetCurrentContext()!
         image.draw(in: CGRect(origin: .zero, size: image.size))
         context.setStrokeColor(CGColor(srgbRed: 1, green: 0, blue: 0, alpha: 1))
-        context.setLineWidth(2)
+        context.setLineWidth(3)
         
         for index in 0 ..< textBlocks.count {
             let optimizedRect = textBlocks[index].cgRect.applying(imageTransform)
