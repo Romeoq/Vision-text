@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		221E5B792591EB9800F2DA5A /* CheckSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E5B782591EB9800F2DA5A /* CheckSelectionBox.swift */; };
+		221E5B792591EB9800F2DA5A /* RecognizedTextBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E5B782591EB9800F2DA5A /* RecognizedTextBlock.swift */; };
 		227F681F258202BB002B2BA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227F681E258202BB002B2BA6 /* AppDelegate.swift */; };
 		227F6823258202BB002B2BA6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227F6822258202BB002B2BA6 /* MainViewController.swift */; };
 		227F6826258202BB002B2BA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 227F6824258202BB002B2BA6 /* Main.storyboard */; };
@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		221E5B782591EB9800F2DA5A /* CheckSelectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckSelectionBox.swift; sourceTree = "<group>"; };
+		221E5B782591EB9800F2DA5A /* RecognizedTextBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizedTextBlock.swift; sourceTree = "<group>"; };
 		227F681B258202BB002B2BA6 /* SwiftOcrTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftOcrTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		227F681E258202BB002B2BA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		227F6822258202BB002B2BA6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -57,7 +57,7 @@
 		225A389825D17494000F76E3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				221E5B782591EB9800F2DA5A /* CheckSelectionBox.swift */,
+				221E5B782591EB9800F2DA5A /* RecognizedTextBlock.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -178,7 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				227F6823258202BB002B2BA6 /* MainViewController.swift in Sources */,
-				221E5B792591EB9800F2DA5A /* CheckSelectionBox.swift in Sources */,
+				221E5B792591EB9800F2DA5A /* RecognizedTextBlock.swift in Sources */,
 				227F681F258202BB002B2BA6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

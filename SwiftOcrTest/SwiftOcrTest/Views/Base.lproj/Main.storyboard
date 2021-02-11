@@ -35,17 +35,17 @@
                                 </constraints>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="x9b-KY-hGL">
-                                <rect key="frame" x="10" y="258" width="394" height="150"/>
+                                <rect key="frame" x="10" y="258" width="394" height="130"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="tbW-tK-xHW"/>
+                                    <constraint firstAttribute="height" constant="130" id="tbW-tK-xHW"/>
                                 </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PBq-sz-0az" userLabel="ViewForInvoice">
-                                <rect key="frame" x="10" y="418" width="394" height="444"/>
+                                <rect key="frame" x="10" y="398" width="394" height="464"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
