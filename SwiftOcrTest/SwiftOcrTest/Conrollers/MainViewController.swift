@@ -52,7 +52,6 @@ private extension MainViewController {
             guard let observations = request.results as? [VNRecognizedTextObservation] else {
                 return
             }
-
             var detectedText = ""
             self.textBlocks.removeAll()
             
@@ -60,23 +59,14 @@ private extension MainViewController {
                 guard let topCandidate = observation.topCandidates(1).first else { return }
                 detectedText += "\(topCandidate.string)\n"
                 
-                //Individual text blocks settings
-                var finalString = topCandidate.string.replacingOccurrences(of: ",", with: ".")
-                let restrictedSymbols: Set<Character> = ["=", "-", "_", "+", " "]
-                finalString.removeAll(where: { restrictedSymbols.contains($0) })
-                for _ in 0 ..< 3 {
-                    if let lastCharacter = finalString.last, !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: String(lastCharacter))) {
-                        finalString.removeLast()
-                    }
-                }
-                
-                if let double = Double(finalString) {
-                    self.textBlocks.append(RecognizedTextBlock(doubleValue: double, cgRect: observation.boundingBox))
+                //Text block specific for this project
+                if let recognizedBlock = self.getRecognizedDoubleBlock(topCandidate: topCandidate.string, observationBox: observation.boundingBox) {
+                    self.textBlocks.append(recognizedBlock)
                 }
             }
             
             DispatchQueue.main.async {
-                self.textView.text += detectedText
+                self.textView.text = detectedText
                 self.removeLoader()
                 self.drawRecognizedBlocks()
             }
@@ -199,5 +189,23 @@ private extension MainViewController {
     func removeLoader() {
         loader?.removeFromSuperview()
         loader = nil
+    }
+    
+    func getRecognizedDoubleBlock(topCandidate: String, observationBox: CGRect) -> RecognizedTextBlock? {
+        //Text blocks settings for this project
+        var finalString = topCandidate.replacingOccurrences(of: ",", with: ".")
+        let restrictedSymbols: Set<Character> = ["=", "-", "_", "+", " "]
+        finalString.removeAll(where: { restrictedSymbols.contains($0) })
+        for _ in 0 ..< 3 {
+            if let lastCharacter = finalString.last, !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: String(lastCharacter))) {
+                finalString.removeLast()
+            }
+        }
+        
+        //Only Doubles for this project
+        if let double = Double(finalString) {
+            return RecognizedTextBlock(doubleValue: double, cgRect: observationBox)
+        }
+        return nil
     }
 }
