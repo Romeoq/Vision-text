@@ -88,7 +88,7 @@ private extension MainViewController {
         let context = UIGraphicsGetCurrentContext()!
         image.draw(in: CGRect(origin: .zero, size: image.size))
         context.setStrokeColor(CGColor(srgbRed: 1, green: 0, blue: 0, alpha: 1))
-        context.setLineWidth(3)
+        context.setLineWidth(4)
         
         for index in 0 ..< textBlocks.count {
             let optimizedRect = textBlocks[index].cgRect.applying(imageTransform)
