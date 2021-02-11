@@ -30,31 +30,41 @@ class MainViewController: UIViewController {
 
 //MARK: Recognition block
 private extension MainViewController {
+    
+    //Call text recognition request handler
     func recognizeImage(cgImage: CGImage) {
         textRecognitionWorkQueue.async {
             let requestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
             do {
                 try requestHandler.perform([self.textRecognitionRequest!])
             } catch {
-                self.removeLoader()
-                print(error)
+                DispatchQueue.main.async {
+                    self.removeLoader()
+                    print(error)
+                }
             }
         }
     }
     
+    //Set textRecognitionRequest from ViewDidLoad
     func setTextRequest() {
         textRecognitionRequest = VNRecognizeTextRequest { request, error in
-            guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
+            guard let observations = request.results as? [VNRecognizedTextObservation] else {
+                return
+            }
 
             var detectedText = ""
             self.textBlocks.removeAll()
+            
             for observation in observations {
                 guard let topCandidate = observation.topCandidates(1).first else { return }
+                
+                //Individual text blocks settings
                 var finalString = topCandidate.string.replacingOccurrences(of: ",", with: ".")
-                finalString = finalString.replacingOccurrences(of: "=", with: "")
-                finalString = finalString.replacingOccurrences(of: "-", with: "")
-                detectedText += finalString
-                detectedText += "\n"
+                let restrictedSymbols: Set<Character> = ["=", "-", "_", "+"]
+                finalString.removeAll(where: { restrictedSymbols.contains($0) })
+                
+                detectedText += "\(finalString)\n"
                 
                 if let double = Double(finalString) {
                     self.textBlocks.append(RecognizedTextBlock(doubleValue: double, cgRect: observation.boundingBox))
@@ -62,77 +72,63 @@ private extension MainViewController {
             }
             
             DispatchQueue.main.async {
+                self.textView.text += detectedText
                 self.removeLoader()
                 self.drawRecognizedBlocks()
-                self.textView.text += detectedText
             }
         }
+        
+        //Individual recognition request settings
         textRecognitionRequest!.minimumTextHeight = 0.007 // Lower = better quality
         textRecognitionRequest!.recognitionLevel = .accurate
-        textRecognitionRequest!.usesLanguageCorrection = false
-        textRecognitionRequest!.recognitionLanguages = ["ru", "ro", "en"]
     }
     
     func drawRecognizedBlocks() {
         guard let image = invoiceImage?.image else  { return }
         
+        //transform from documentation
         let imageTransform = CGAffineTransform.identity.scaledBy(x: 1, y: -1).translatedBy(x: 0, y: -image.size.height).scaledBy(x: image.size.width, y: image.size.height)
         
+        //drawing rects on cgimage
         UIGraphicsBeginImageContextWithOptions(image.size, false, 1.0)
         let context = UIGraphicsGetCurrentContext()!
         image.draw(in: CGRect(origin: .zero, size: image.size))
         context.setStrokeColor(CGColor(srgbRed: 1, green: 0, blue: 0, alpha: 1))
         context.setLineWidth(2)
+        
         for index in 0 ..< textBlocks.count {
             let optimizedRect = textBlocks[index].cgRect.applying(imageTransform)
             context.addRect(optimizedRect)
             textBlocks[index].imageRect = optimizedRect
         }
         context.strokePath()
-        let result=UIGraphicsGetImageFromCurrentImageContext()
+        
+        let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         invoiceImage?.image = result
     }
     
-//    func drawButton(optimizedRect: CGRect, index: Int, sourceImage: UIImage) {
-//        let btn = UIButton(frame: optimizedRect)
-//        btn.tag = index
-//        btn.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.5)
-//        btn.addTarget(self, action: #selector(onNumberTap), for: .touchUpInside)
-//        tempView!.addSubview(btn)
-////        btn.transform = CGAffineTransform(scaleX: viewForImage.bounds.width / sourceImage.size.width, y: 1)
-//    }
-    
-//    func moveTempView() {
-//        tempView!.frame.origin.y += viewForImage.frame.height - 100
-//    }
-    
-//    @objc
-//    func onNumberTap(sender: UIButton) {
-//        print("Index = \(sender.tag)", "Price = \(boxes[sender.tag].double)")
-//    }
-    
+    //UIImageView tap listener
     @objc func onImageViewTap(sender: UITapGestureRecognizer) {
-        print("Taped")
-//        guard let image = checkImageView.image, let cgImage = image.cgImage else { return }
-
-//        let tapX = sender.location(in: checkImageView).x
-//        let tapY = sender.location(in: checkImageView).y
-//
-//        let xRatio = image.size.width / checkImageView.bounds.width
-//        let yRatio = image.size.height / checkImageView.bounds.height
-//
-//        let imageXPoint = tapX * xRatio
-//        let imageYPoint = tapY * yRatio
-//
-//        for box in boxes {
-//            if box.imageBox.contains(CGPoint(x: imageXPoint, y: imageYPoint)) {
-//                print(box.double)
-//                break
-//            }
-//        }
-//        print(imageXPoint, imageYPoint, image.size, cgImage.width, cgImage.height, checkImageView.bounds.size)
+        guard let invoiceImage = invoiceImage, let image = invoiceImage.image else {
+            return
+        }
         
+        //get tap coordinates on image
+        let tapX = sender.location(in: invoiceImage).x
+        let tapY = sender.location(in: invoiceImage).y
+        let xRatio = image.size.width / invoiceImage.bounds.width
+        let yRatio = image.size.height / invoiceImage.bounds.height
+        let imageXPoint = tapX * xRatio
+        let imageYPoint = tapY * yRatio
+
+        //detecting if one of text blocks tapped
+        for block in textBlocks {
+            if block.imageRect.contains(CGPoint(x: imageXPoint, y: imageYPoint)) {
+                showTapAlert(doubleValue: block.doubleValue)
+                break
+            }
+        }
     }
 }
 
@@ -173,6 +169,12 @@ private extension MainViewController {
         viewForInvoice.addSubview(invoiceImage!)
         
         invoiceImage?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onImageViewTap(sender:))))
+    }
+    
+    func showTapAlert(doubleValue: Double) {
+        let alert = UIAlertController(title: "Double tapped!", message: "\(doubleValue)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     func setLoader() {
