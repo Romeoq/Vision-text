@@ -91,7 +91,7 @@ private extension MainViewController {
         context.setLineWidth(4)
         
         for index in 0 ..< textBlocks.count {
-            let optimizedRect = textBlocks[index].cgRect.applying(imageTransform)
+            let optimizedRect = textBlocks[index].recognizedRect.applying(imageTransform)
             context.addRect(optimizedRect)
             textBlocks[index].imageRect = optimizedRect
         }
@@ -204,7 +204,7 @@ private extension MainViewController {
         
         //Only Doubles for this project
         if let double = Double(finalString) {
-            return RecognizedTextBlock(doubleValue: double, cgRect: observationBox)
+            return RecognizedTextBlock(doubleValue: double, recognizedRect: observationBox)
         }
         return nil
     }

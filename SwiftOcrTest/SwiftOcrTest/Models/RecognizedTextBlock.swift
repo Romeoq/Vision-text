@@ -8,7 +8,7 @@ import Vision
 struct RecognizedTextBlock {
     
     let doubleValue: Double
-    let cgRect: CGRect
+    let recognizedRect: CGRect
     var imageRect: CGRect = .zero
     
 }
