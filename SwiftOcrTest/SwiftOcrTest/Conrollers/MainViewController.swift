@@ -56,7 +56,7 @@ private extension MainViewController {
             self.textBlocks.removeAll()
             
             for observation in observations {
-                guard let topCandidate = observation.topCandidates(1).first else { return }
+                guard let topCandidate = observation.topCandidates(1).first else { continue }
                 detectedText += "\(topCandidate.string)\n"
                 
                 //Text block specific for this project
